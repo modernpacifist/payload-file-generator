@@ -5,28 +5,27 @@ import argparse
 # normal string -> hexstring -> bytes
 # translate normal text into hex and the into binary as different separated funcitons
 
+# 's="string"; x=b"lol"; print(bytes(s,"utf-8"), x); f=open("FILE", "wb");
+# f.write(bytes(s, "ascii"));f.close()'
+
 
 class Translator():
-    def __init__(self, normal_string, hexstring: str):
+    def __init__(self, normal_string):
         self.normal_string = normal_string
-        self.hexstring = hexstring
         self.bytestring = None
 
     def translate(self):
-        self.hexstring
+        self.bytestring = bytes(self.normal_string, "utf-8")
 
 
 class Outputter():
-    def __init__(self, filename: str, hexstring: str):
-        self.filename = filename
-        self.hexstring = hexstring
-
-    # def print_binary():
-        # sys.
+    def __init__(self, outfile: str, bytes: str):
+        self.outfile = outfile
+        self.bytes = bytes
 
     def save_to_file(self):
-        with open(self.filename, "wb") as f:
-            f.write(self.hexstring)
+        with open(self.outfile, "wb") as f:
+            f.write(self.bytes)
 
 
 def parse_args():
@@ -40,9 +39,15 @@ def parse_args():
 
 def main():
     args = parse_args()
-    print(args.payload_string)
+    original_string = args.payload_string
+    outfile = args.outfile
 
+    t = Translator(original_string)
+    t.translate()
+    bytes = t.bytestring
 
+    o = Outputter(outfile, bytes)
+    o.save_to_file()
 
 
 if __name__ == '__main__':
