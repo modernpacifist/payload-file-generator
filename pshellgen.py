@@ -2,7 +2,6 @@
 import sys
 import argparse
 
-
 # translate normal text into hex and the into binary as different separated funcitons
 
 
