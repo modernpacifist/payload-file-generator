@@ -5,8 +5,8 @@ import argparse
 # normal string -> hexstring -> bytes
 # translate normal text into hex and the into binary as different separated funcitons
 
-# 's="string"; x=b"lol"; print(bytes(s,"utf-8"), x); f=open("FILE", "wb");
-# f.write(bytes(s, "ascii"));f.close()'
+#this works move from this
+# python3.8 -c 'buf=("\x90"*184);f=open("payload_diablos", "wb");f.write(bytes(buf, "utf-8"));f.close;'
 
 
 class Translator():
