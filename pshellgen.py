@@ -21,17 +21,18 @@ class Translator:
 class PayloadGenerator:
     def __init__(self, filename: str, opcode: str, opcode_qty: int):
         self.filename = filename
-        self.opcode = bytes(opcode, "utf-8")
+        self.opcode = opcode
         self.opcode_qty = opcode_qty
+        self.nop_slide = None
         self.payload = None
 
-    def generate_payload(self):
-        self.payload = self.opcode * self.opcode_qty
+    def generate_nop_slide(self):
+        self.nop_slide = bytes("\x90", "utf-8") * self.opcode_qty
 
     def save_to_file(self):
-        f = open(f"{self.filename}.bytes", "wb")
-        f.write(self.payload)
-        f.close()
+        self.generate_nop_slide()
+        with open(f"{self.filename}.payload", "wb") as f:
+            f.write(self.payload)
 
 
 # def parse_args():
@@ -48,14 +49,14 @@ def main():
     # original_string = args.payload_string
     # filename = args.filename
 
-    if len(sys.argv) != 2:
-        print("specify string")
+    if len(sys.argv) != 3:
+        print("error in args")
         sys.exit(1)
 
     filename = sys.argv[1]
+    opcode = sys.argv[2]
 
-    p = PayloadGenerator(filename, "\x90", 90)
-    p.generate_payload()
+    p = PayloadGenerator(filename, 90)
     p.save_to_file()
 
 
