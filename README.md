@@ -1,7 +1,8 @@
-# python-shellcode-translator
-A small command line interface script for generation of files with NOP slides and your custom payloads
+# payload-generator
+A small command line interface script for generation of payload sequences/files with payload sequences with NOP slides of arbitrary length and your custom payload strings/shellcode.
+This script is mainly aimed at buffer overflow/stack smashing vulnerabilities and therefore provides easy-to-use format for generating specific payloads.
 
 Usage:
 ```
-$ ./pfilegen.py --outfile/-o <FILE> --length/-l <NOP_SLIDE_LENGTH> --payload/-p <YOUR_CUSTOM_SHELLCODE>
+$ ./payload-generator.py --length <NOP_SLIDE_LENGTH> --payload <PLAIN_TEXT>[--shellcode <SHELLCODE>] --filename <FILENAME>
 ```
