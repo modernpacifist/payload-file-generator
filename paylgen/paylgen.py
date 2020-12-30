@@ -1,12 +1,27 @@
 #!/bin/env python3.9
 
-from fire import Fire
-from PayloadFileGenerator import PayloadFileGenerator
+import fire
 
 
-def main():
-    Fire(PayloadFileGenerator)
+class PayloadGenerator:
+    def __init__(self, length: int, payload: str):
+        self.length = length
+        self.payload = payload
+        self.nop_slide = None
+        self.generated_payload = None
+        self._generate_payload()
+
+    def _generate_payload(self):
+        self.nop_slide = b"\x90" * self.length
+        self.generated_payload = self.nop_slide + bytes(self.payload, "utf-8")
+
+    def print(self):
+        print(self.generated_payload)
+
+    def save(self, filename):
+        with open(f"{filename}.generated_payload", "wb") as f:
+            f.write(self.generated_payload)
 
 
 if __name__ == '__main__':
-    main()
+    fire.Fire(PayloadGenerator)
