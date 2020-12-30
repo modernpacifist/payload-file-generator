@@ -19,7 +19,7 @@ class PayloadGenerator:
         print(self.generated_payload)
 
     def save(self, filename):
-        with open(f"{filename}.generated_payload", "wb") as f:
+        with open(f"{filename}.payload", "wb") as f:
             f.write(self.generated_payload)
 
 
