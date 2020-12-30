@@ -1,5 +1,5 @@
 # python-shellcode-translator
-A command line interface script for generation of payload files with your custom payloads
+A small command line interface script for generation of files with NOP slides and your custom payloads
 
 Usage:
 ```
