@@ -1,4 +1,5 @@
 *.hex
+*.txt
 *.bytes
 *.payload
 __pycache__/
