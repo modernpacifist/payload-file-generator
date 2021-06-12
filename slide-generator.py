@@ -3,20 +3,29 @@
 from argparse import ArgumentParser as ap
 
 
-class PayloadGenerator:
+class NopSlideGenerator:
     def __init__(self, length: int):
-        self.length = length
+        self._length = length
 
-        self._nop_slide = None
+    def generate_slide(self) -> bytes:
+        return b'\x90' * self._length
 
-        self._generate_nop_slide()
-        self._get_nop_slide()
 
-    def _generate_nop_slide(self):
-        self._nop_slide = b'\x90' * self.length
+class PayloadGenerator:
+    def __init__(self, nop_slide: str):
+        self._nop_slide = nop_slide
 
-    def _get_nop_slide(self):
-        print(repr(self._nop_slide)[2:-1])
+    def print_nop(self):
+        return repr(self._nop_slide)[2:-1]
+
+        # self._generate_nop_slide()
+        # self._get_nop_slide()
+
+    # def _generate_nop_slide(self):
+        # self._nop_slide = b'\x90' * self.length
+
+    # def _get_nop_slide(self):
+        # print(repr(self._nop_slide)[2:-1])
 
 
 def get_args():
@@ -31,4 +40,9 @@ def get_args():
 if __name__ == "__main__":
     args = get_args()
 
-    pg = PayloadGenerator(args.length)
+    nsg = NopSlideGenerator(args.length)
+
+    nop_slide = nsg.generate_slide()
+
+    pg = PayloadGenerator(nop_slide)
+    print(pg.print_nop())
