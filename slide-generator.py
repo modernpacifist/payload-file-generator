@@ -1,6 +1,6 @@
 #!/bin/env python3.9
 
-import codecs
+import binascii
 
 from argparse import ArgumentParser as ap
 
@@ -20,23 +20,20 @@ class NopSlideGenerator:
 
 
 class PayloadInserter:
-    def __init__(self, nop_slide: bytes, shellcode: str):
+    def __init__(self, nop_slide: bytes, shellcode: bytes):
         self._nop_slide = nop_slide
-        self._payload = shellcode.replace("\\x", "")
+        self._payload = shellcode
         self._comb_res = None
 
-        # self.insert_shellcode()
-        self.print_payload()
+        self._insert_shellcode()
+        self.print_nop()
 
-    def print_payload(self):
-        print(self._payload)
+    def _insert_shellcode(self):
+        self._comb_res = self._nop_slide + self._payload
 
     def print_nop(self):
-        res = self._nop_slide + self._payload
-        print(repr(res)[2:-1])
-
-    def insert_shellcode(self):
-        self._comb_res = self._nop_slide + self._payload
+        # print(repr(self._comb_res)[2:-1])
+        print((self._comb_res))
 
 
 def get_args():
@@ -45,6 +42,8 @@ def get_args():
                         help="length of the nop slide")
     parser.add_argument("-p", "--payload", dest="payload", type=str, required=True,
                         help="your custom payload in bytes, will be inserted after nop slide")
+    parser.add_argument("-o", "--outfile", dest="outfile", type=str, required=False,
+                        help="save to file")
     return parser.parse_args()
 
 
@@ -54,6 +53,13 @@ if __name__ == "__main__":
     nsg = NopSlideGenerator(args.length)
     nop_slide = nsg.get_slide()
 
-    PayloadInserter(nop_slide, args.payload)
+    byte_payload = bytes(args.payload, "utf-8")
+
+    hex = args.payload.replace("\\x", "")
+
+    print(hex)
+    # print(binascii.hexlify(hex))
+
+    # PayloadInserter(nop_slide, bytes.fromhex(hex))
 
     # print(codecs.decode(str_payload, "hex_codec"))
