@@ -20,9 +20,9 @@ class NopSlideGenerator:
 
 
 class PayloadInserter:
-    def __init__(self, nop_slide: bytes, shellcode: bytes):
+    def __init__(self, nop_slide: bytes, payload: str):
         self._nop_slide = nop_slide
-        self._payload = shellcode
+        self._payload = payload
         self._comb_res = None
 
         self._insert_shellcode()
@@ -32,8 +32,7 @@ class PayloadInserter:
         self._comb_res = self._nop_slide + self._payload
 
     def print_nop(self):
-        # print(repr(self._comb_res)[2:-1])
-        print((self._comb_res))
+        print(repr(self._comb_res)[2:-1])
 
 
 def get_args():
@@ -52,12 +51,14 @@ if __name__ == "__main__":
 
     nsg = NopSlideGenerator(args.length)
     nop_slide = nsg.get_slide()
+    print(f"nop_slide: {nop_slide}")
 
-    byte_payload = bytes(args.payload, "utf-8")
+    bytes = bytes(args.payload, "utf-8")
+    print(f"bytes: {bytes}")
 
-    hex = args.payload.replace("\\x", "")
+    stripped_bytes = args.payload.replace("\\x", "")
+    print(f"stripped_bytes: {stripped_bytes}")
 
-    print(hex)
     # print(binascii.hexlify(hex))
 
     # PayloadInserter(nop_slide, bytes.fromhex(hex))
