@@ -1,5 +1,5 @@
 # payload-generator
-Ggenerate payloads with custom shellcode preceded by NOP slides
+Gegenerate payloads with custom shellcode preceded by NOP slides
 
 Usage:
 ```
