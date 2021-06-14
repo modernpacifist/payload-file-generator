@@ -1,8 +1,7 @@
 # payload-generator
-A small command line interface script for generation of payload sequences/files with payload sequences with NOP slides of arbitrary length and your custom payload strings/shellcode.
-This script is mainly aimed at buffer overflow/stack smashing vulnerabilities and therefore provides easy-to-use format for generating specific payloads.
+Ggenerate payloads with custom shellcode preceded by NOP slides
 
 Usage:
 ```
-$ ./payload-generator.py --length <NOP_SLIDE_LENGTH> --payload <PLAIN_TEXT>[--shellcode <SHELLCODE>] --filename <FILENAME>
+$ python3 payload-generator.py -l 25 -p "\x90\x90\x64\x33\x12\x11\x09"
 ```
